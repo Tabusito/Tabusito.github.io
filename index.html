@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TabuSitoッ</title>
-
     <!-- Favicon -->
     <link rel="icon" href="https://avatars.fastly.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" type="image/jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
-    
     <style>
         /* Estilos generales */
         * {
@@ -108,7 +106,17 @@
             animation: slideUp 1s ease-out;
         }
 
-        /* Bio */
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         .bio-section {
             padding: 5rem 2rem;
             max-width: 1200px;
@@ -142,7 +150,32 @@
             color: #00ff9d;
         }
 
-        /* Capturas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            background: rgba(0, 255, 157, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #00ff9d;
+        }
+
+        /* Section for captures */
         .captures-section {
             padding: 5rem 2rem;
             text-align: center;
@@ -179,6 +212,31 @@
             transform: translateY(-5px);
         }
 
+        /* Animación para los textos */
+        @keyframes textAnim {
+            0% { transform: translateX(-50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Aplicar animación a los textos */
+        h1, .viciando-text {
+            animation: textAnim 1s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .bio-section {
+                padding: 3rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -194,15 +252,16 @@
 
     <section class="hero">
         <div class="hero-content">
-            <img src="https://avatars.cloudflare.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" alt="TabuSito" class="profile-img">
+            <!-- Imagen de perfil actualizada -->
+            <img src="https://avatars.cloudflare.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" alt="Tu foto de perfil" class="profile-img">
             <h1>TabuEgoistッ</h1>
-            <p class="viciando-text">viciando las 24/7 uwu</p>
+            <p class="viciando-text">⚡Viciando las 24/7⚡</p>
         </div>
     </section>
 
     <section class="bio-section" id="perfiles">
         <div class="bio-card">
-            <h2>mis perfiles :D</h2>
+            <h2>Mis Perfiles</h2>
             <p><strong>Steam:</strong> <a href="https://steamcommunity.com/id/TabuSito" target="_blank"><i class="fab fa-steam"></i> steamcommunity.com/id/TabuSito</a></p>
             <p><strong>Epic Games:</strong> TabuEgoistッ</p>
             <p><strong>Xbox:</strong> atrgame1</p>
@@ -213,21 +272,21 @@
     </section>
 
     <section class="captures-section" id="capturas">
-        <h2>algunas de mis capturas subidas:D</h2>
+        <h2>Algunas de mis capturas subidas</h2>
         <div class="captures-grid">
             <div class="capture-card">
-                <img src="https://steamuserimages-a.akamaihd.net/ugc/5166736097702077/6B2CAF4AFAE2AA89AF164CD72CC701A309889FBE/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt=" el Left">
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/5166736097702077/6B2CAF4AFAE2AA89AF164CD72CC701A309889FBE/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 1">
             </div>
             <div class="capture-card">
-                <img src="https://steamuserimages-a.akamaihd.net/ugc/2290707943282617268/1A1E0CCBADDF1CE6499F8EFBE7E6A163F0CD17FB/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="just cause2">
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/2290707943282617268/1A1E0CCBADDF1CE6499F8EFBE7E6A163F0CD17FB/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 2">
             </div>
             <div class="capture-card">
-                <img src="https://steamuserimages-a.akamaihd.net/ugc/5163021526724687/78C2509678387DF73C707F127F93ADA74861BC20/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="el Van Helsing II">
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/5163021526724687/78C2509678387DF73C707F127F93ADA74861BC20/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 3">
             </div>
             <div class="capture-card">
-                <img src="https://steamuserimages-a.akamaihd.net/ugc/2494509226704257864/EAB2B9999A9319FF74A024D6FE7B8F66787B545B/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="terraria">
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/2494509226704257864/EAB2B9999A9319FF74A024D6FE7B8F66787B545B/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 4">
             </div>
         </div>
     </section>
 </body>
-    </html>
+</html>
