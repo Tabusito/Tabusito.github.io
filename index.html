@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TabuSitoッ</title>
+  <meta name="google-site-verification" content="qgR_CRqT7wjCZpmGfMFuLkxTHWiik4zuP1dGOIMWE1w" />
   <meta property="og:image" content="https://i.imgur.com/zMAKF3B.png">
   <meta property="og:title" content="TabuSitoッ">
   <meta property="og:description" content="">
@@ -13,12 +14,7 @@
   <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
@@ -26,17 +22,7 @@
       overflow-x: hidden;
       animation: fadeIn 1s ease-in;
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .navbar {
       background: rgba(0, 0, 0, 0.9);
       padding: 1rem 2rem;
@@ -46,7 +32,6 @@
       z-index: 1000;
       backdrop-filter: blur(10px);
     }
-
     .nav-content {
       max-width: 1200px;
       margin: 0 auto;
@@ -54,25 +39,19 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .logo {
       font-family: 'Orbitron', sans-serif;
       font-size: 1.5rem;
       color: #00ff9d;
       text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
     }
-
     .nav-links a {
       color: #fff;
       text-decoration: none;
       margin-left: 2rem;
       transition: color 0.3s ease;
     }
-
-    .nav-links a:hover {
-      color: #00ff9d;
-    }
-
+    .nav-links a:hover { color: #00ff9d; }
     .hero {
       height: 100vh;
       display: flex;
@@ -84,12 +63,10 @@
       background-size: cover;
       background-position: center;
     }
-
     .hero-content {
       max-width: 800px;
       padding: 2rem;
     }
-
     .profile-img {
       width: 200px;
       height: 200px;
@@ -99,180 +76,13 @@
       box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
       animation: float 3s ease-in-out infinite;
     }
-
     @keyframes float {
-      0% {
-        transform: translateY(0px);
-      }
-
-      50% {
-        transform: translateY(-20px);
-      }
-
-      100% {
-        transform: translateY(0px);
-      }
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
     }
-
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      animation: slideUp 1s ease-out;
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(50px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .bio-section {
-      padding: 5rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .bio-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-      transform: translateY(50px);
-      opacity: 0;
-      animation: slideUp 1s ease-out 0.8s forwards;
-    }
-
-    h2 {
-      font-family: 'Orbitron', sans-serif;
-      color: #00ff9d;
-      margin-bottom: 1.5rem;
-    }
-
-    .social-links a {
-      color: #fff;
-      font-size: 1.5rem;
-      margin: 0 1rem;
-      transition: color 0.3s ease;
-    }
-
-    .social-links a:hover {
-      color: #00ff9d;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .stat-item {
-      background: rgba(0, 255, 157, 0.1);
-      padding: 1.5rem;
-      border-radius: 10px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .stat-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .stat-value {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      color: #00ff9d;
-    }
-
-    .captures-section {
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-
-    .captures-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      justify-items: center;
-      margin-top: 3rem;
-      margin-bottom: 2rem;
-    }
-
-    .capture-card {
-      border: 3px solid #00ff9d;
-      border-radius: 10px;
-      padding: 10px;
-      transition: transform 0.3s ease;
-      animation: fadeIn 0.8s ease-in-out;
-    }
-
-    .capture-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .capture-card img:hover {
-      transform: scale(1.05);
-    }
-
-    .capture-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .notification {
-      background: rgba(0, 255, 157, 0.9);
-      padding: 1rem 2rem;
-      position: fixed;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 10px;
-      z-index: 9999;
-      display: none;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 80%;
-      box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
-      transition: opacity 0.3s ease;
-    }
-
-    .notification h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-
-    .notification button {
-      background: #00ff9d;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .notification button:hover {
-      background: #00bfae;
-    }
-
-    .notification button:active {
-      background: #00ff9d;
-    }
-
   </style>
 </head>
-
 <body>
   <nav class="navbar">
     <div class="nav-content">
@@ -294,8 +104,8 @@
 
   <section class="bio-section" id="perfiles">
     <div class="bio-card">
-      <h2>mis perfiles:D</h2>
-      <p><strong>Steam:</strong><a href="https://steamcommunity.com/id/TabuSito" target="_blank"><i class="fab fa-steam"></i> steamcommunity.com/id/TabuSito</a></p>
+      <h2>Mis perfiles:D</h2>
+      <p><strong>Steam:</strong> <a href="https://steamcommunity.com/id/TabuSito" target="_blank">steamcommunity.com/id/TabuSito</a></p>
       <p><strong>Epic Games:</strong> TabuEgoistッ</p>
       <p><strong>Xbox:</strong> atrgame1</p>
       <p><strong>Battle.net:</strong> atr#21975</p>
@@ -308,22 +118,15 @@
     <h2>Algunas de mis capturas subidas:D</h2>
     <div class="captures-grid">
       <div class="capture-card">
-        <img src="https://steamuserimages-a.akamaihd.net/ugc/5166736097702077/6B2CAF4AFAE2AA89AF164CD72CC701A309889FBE/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 1">
+        <img src="https://steamuserimages-a.akamaihd.net/ugc/5166736097702077/6B2CAF4AFAE2AA89AF164CD72CC701A309889FBE/?imw=5000&imh=5000" alt="Captura 1">
       </div>
       <div class="capture-card">
-        <img src="https://steamuserimages-a.akamaihd.net/ugc/2290707943282617268/1A1E0CCBADDF1CE6499F8EFBE7E6A163F0CD17FB/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 2">
-      </div>
-      <div class="capture-card">
-        <img src="https://steamuserimages-a.akamaihd.net/ugc/5163021526724687/78C2509678387DF73C707F127F93ADA74861BC20/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 3">
-      </div>
-      <div class="capture-card">
-        <img src="https://steamuserimages-a.akamaihd.net/ugc/2494509226704257864/EAB2B9999A9319FF74A024D6FE7B8F66787B545B/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 4">
+        <img src="https://steamuserimages-a.akamaihd.net/ugc/2290707943282617268/1A1E0CCBADDF1CE6499F8EFBE7E6A163F0CD17FB/?imw=5000&imh=5000" alt="Captura 2">
       </div>
     </div>
-   
+  </section>
 
-
-  <!-- Notification -->
+  <!-- Notificación -->
   <div class="notification" id="confetti-notification">
     <h3>HOY 31 DE ENERO MI STEAM CUMPLE 3 AÑITOS^^</h3>
     <button onclick="window.location.href='https://steamcommunity.com/id/TabuSito'">steam</button>
@@ -334,11 +137,7 @@
     window.onload = () => {
       setTimeout(() => {
         document.getElementById('confetti-notification').style.display = 'flex';
-        confetti({
-          particleCount: 150,
-          spread: 70,
-          origin: { x: 0.5, y: 0.5 }
-        });
+        confetti({ particleCount: 150, spread: 70, origin: { x: 0.5, y: 0.5 } });
       }, 1000);
     };
   </script>
