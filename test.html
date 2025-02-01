@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabuSitoッ - Grabación y Capturas</title>
+  <meta property="og:image" content="https://i.imgur.com/zMAKF3B.png">
+  <meta property="og:title" content="TabuSitoッ">
+  <meta property="og:description" content="">
+  <meta property="og:url" content="https://tabusito.github.io/">
+  <link rel="icon" href="https://avatars.fastly.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> <!-- Asegurarse de que se carga correctamente -->
+  <style>
+    /* El CSS sigue igual al anterior... */
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <!-- Navbar igual -->
+  </nav>
+  <section class="hero">
+    <div class="hero-content">
+      <img src="https://avatars.cloudflare.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" alt="TabuSito" class="profile-img">
+      <h1>TabuEgoistッ</h1>
+      <p class="viciando-text">viciando las 24/7 uwu</p>
+    </div>
+  </section>
+
+  <!-- Bio Section -->
+
+  <section class="captures-section" id="capturas">
+    <h2>Algunas de mis capturas subidas:D</h2>
+    <div class="captures-grid">
+      <div class="capture-card">
+        <img src="https://steamuserimages-a.akamaihd.net/ugc/5166736097702077/6B2CAF4AFAE2AA89AF164CD72CC701A309889FBE/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 1">
+      </div>
+      <div class="capture-card">
+        <img src="https://steamuserimages-a.akamaihd.net/ugc/2290707943282617268/1A1E0CCBADDF1CE6499F8EFBE7E6A163F0CD17FB/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 2">
+      </div>
+      <div class="capture-card">
+        <img src="https://steamuserimages-a.akamaihd.net/ugc/5163021526724687/78C2509678387DF73C707F127F93ADA74861BC20/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 3">
+      </div>
+      <div class="capture-card">
+        <img src="https://steamuserimages-a.akamaihd.net/ugc/2494509226704257864/EAB2B9999A9319FF74A024D6FE7B8F66787B545B/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Captura 4">
+      </div>
+    </div>
+    <button onclick="startCapture()">Genera tu captura</button>
+  </section>
+
+  <script>
+    // Verifica si el navegador soporta getDisplayMedia
+    async function startCapture() {
+      try {
+        // Verifica si la API está disponible
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+          alert("Tu navegador no soporta la captura de pantalla.");
+          return;
+        }
+
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        const videoElement = document.createElement('video');
+        videoElement.srcObject = stream;
+        videoElement.play();
+
+        // Usa html2canvas para capturar la pantalla
+        html2canvas(document.body).then(function(canvas) {
+          const imgData = canvas.toDataURL("image/png");
+          const link = document.createElement('a');
+          link.href = imgData;
+          link.download = "captura.png";
+          link.click();
+        });
+      } catch (err) {
+        console.error("Error al capturar la pantalla: ", err);
+        alert("Ocurrió un error al intentar capturar la pantalla.");
+      }
+    }
+  </script>
+</body>
+</html>
