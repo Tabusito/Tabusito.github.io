@@ -1,58 +1,167 @@
-<script>
-  let recordBtn = document.getElementById('recordBtn');
-  let captureBtn = document.getElementById('captureBtn');
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captura y Grabación</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ... (estilos anteriores se mantienen igual) ... */
 
-  let mediaRecorder;
-  let recordedChunks = [];
+    .captures-section {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.8);
+    }
 
-  // Función para grabar la pantalla
-  recordBtn.addEventListener('click', async () => {
-    try {
-      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-      mediaRecorder = new MediaRecorder(stream);
-      
-      mediaRecorder.ondataavailable = event => recordedChunks.push(event.data);
-      
-      mediaRecorder.onstop = () => {
-        const blob = new Blob(recordedChunks, { type: 'video/webm' });
-        const url = URL.createObjectURL(blob);
+    .captures-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 2rem;
+      color: #00ff9d;
+      text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+    }
 
-        // Crear enlace para la descarga
+    #previewContainer {
+      margin: 2rem auto;
+      max-width: 800px;
+      display: none;
+    }
+
+    #previewImage {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+    }
+
+    .recording {
+      animation: pulse 1.5s infinite;
+      background: linear-gradient(135deg, #ff0000, #ff4545) !important;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .button-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- ... (navbar y hero section se mantienen igual) ... -->
+
+  <section class="captures-section">
+    <h2>Herramientas de Captura</h2>
+    <div class="button-container">
+      <button id="recordBtn">⏺️ Iniciar Grabación</button>
+      <button id="captureBtn">📸 Capturar Pantalla</button>
+    </div>
+    <div id="previewContainer">
+      <img id="previewImage" alt="Vista previa">
+    </div>
+  </section>
+
+  <script>
+    const recordBtn = document.getElementById('recordBtn');
+    const captureBtn = document.getElementById('captureBtn');
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImage = document.getElementById('previewImage');
+
+    let mediaRecorder;
+    let recordedChunks = [];
+    let isRecording = false;
+
+    // Función para grabar la pantalla
+    recordBtn.addEventListener('click', async () => {
+      if (!isRecording) {
+        try {
+          const stream = await navigator.mediaDevices.getDisplayMedia({
+            video: { displaySurface: 'monitor' },
+            audio: false
+          });
+          
+          mediaRecorder = new MediaRecorder(stream);
+          recordedChunks = [];
+          
+          mediaRecorder.ondataavailable = event => {
+            if (event.data.size > 0) recordedChunks.push(event.data);
+          };
+          
+          mediaRecorder.onstop = async () => {
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `grabacion-${Date.now()}.webm`;
+            document.body.appendChild(a);
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+            stream.getTracks().forEach(track => track.stop());
+          };
+          
+          mediaRecorder.start();
+          isRecording = true;
+          recordBtn.classList.add('recording');
+          recordBtn.innerHTML = '⏹️ Detener Grabación';
+        } catch (err) {
+          console.error('Error al grabar:', err);
+        }
+      } else {
+        mediaRecorder.stop();
+        isRecording = false;
+        recordBtn.classList.remove('recording');
+        recordBtn.innerHTML = '⏺️ Iniciar Grabación';
+      }
+    });
+
+    // Función para captura de pantalla
+    captureBtn.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: { displaySurface: 'monitor' },
+          audio: false
+        });
+        
+        const track = stream.getVideoTracks()[0];
+        const imageCapture = new ImageCapture(track);
+        const photo = await imageCapture.takePhoto();
+        
+        // Mostrar vista previa
+        const url = URL.createObjectURL(photo);
+        previewImage.src = url;
+        previewContainer.style.display = 'block';
+        
+        // Descargar automáticamente
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'recording.webm';  // Nombre del archivo
-        document.body.appendChild(a);   // Necesario para que funcione en algunos navegadores
-        a.click();                     // Hacer clic para descargar el archivo
-        document.body.removeChild(a);  // Eliminar el enlace después de la descarga
-      };
-      
-      mediaRecorder.start();
-    } catch (err) {
-      console.error('Error al acceder a la pantalla:', err);
-    }
-  });
-
-  // Función para tomar una captura de la pantalla
-  captureBtn.addEventListener('click', async () => {
-    try {
-      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-      const track = stream.getVideoTracks()[0];
-      const imageCapture = new ImageCapture(track);
-      const photo = await imageCapture.takePhoto();
-      
-      const url = URL.createObjectURL(photo);
-      
-      // Crear enlace para la descarga de la captura
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'screenshot.png';  // Nombre del archivo de la captura
-      document.body.appendChild(a);   // Necesario para que funcione en algunos navegadores
-      a.click();                     // Hacer clic para descargar el archivo
-      document.body.removeChild(a);  // Eliminar el enlace después de la descarga
-
-      track.stop(); // Detener el stream de la pantalla
-    } catch (err) {
-      console.error('Error al capturar la pantalla:', err);
-    }
-  });
-</script>
+        a.download = `captura-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        
+        // Limpiar
+        URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        track.stop();
+        
+        // Ocultar vista previa después de 5 segundos
+        setTimeout(() => {
+          previewContainer.style.display = 'none';
+          previewImage.src = '';
+        }, 5000);
+        
+      } catch (err) {
+        console.error('Error al capturar:', err);
+      }
+    });
+  </script>
+</body>
+</html>
