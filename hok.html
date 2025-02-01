@@ -1,39 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirección</title>
-    <script>
-        function redirectBasedOnCountry() {
-            var bannedCountries = ["NG", "SA", "QA", "KW", "AE", "OM"]; // Países con mayor posibilidad de bots
-            var userCountry = null;
-            var urlWhatsapp = "https://chat.whatsapp.com/ENjxaH12tYz8zcEfXK7kxS";
-            var fallbackUrl = "https://tabusito.github.io";
-            
-            // Utilizamos la API de geolocalización para obtener el país del usuario
-            fetch('https://ipapi.co/json/')
-                .then(response => response.json())
-                .then(data => {
-                    userCountry = data.country_code; // Obtener el código del país
-
-                    // Verificar si el usuario está en un país prohibido
-                    if (bannedCountries.includes(userCountry)) {
-                        window.location.href = fallbackUrl; // Redirigir a la página de fallback
-                    } else {
-                        window.location.href = urlWhatsapp; // Redirigir a WhatsApp
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error al obtener el país:', error);
-                    window.location.href = urlWhatsapp; // Si no se puede determinar el país, redirigir a WhatsApp
-                });
-        }
-
-        // Ejecutar la función cuando se cargue la página
-        window.onload = redirectBasedOnCountry;
-    </script>
-</head>
-<body>
-</body>
-</html>
+<script>
+<!--
+document.write(unescape("%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22es%22%3E%0A%3Chead%3E%0A%20%20%20%20%3Cmeta%20charset%3D%22UTF-8%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1.0%22%3E%0A%20%20%20%20%3Ctitle%3ERedirecci%F3n%3C/title%3E%0A%20%20%20%20%3Cscript%3E%0A%20%20%20%20%20%20%20%20function%20redirectBasedOnCountry%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20bannedCountries%20%3D%20%5B%22NG%22%2C%20%22SA%22%2C%20%22QA%22%2C%20%22KW%22%2C%20%22AE%22%2C%20%22OM%22%5D%3B%20//%20Pa%EDses%20con%20mayor%20posibilidad%20de%20bots%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20userCountry%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20urlWhatsapp%20%3D%20%22https%3A//chat.whatsapp.com/ENjxaH12tYz8zcEfXK7kxS%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20fallbackUrl%20%3D%20%22https%3A//tabusito.github.io%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20//%20Utilizamos%20la%20API%20de%20geolocalizaci%F3n%20para%20obtener%20el%20pa%EDs%20del%20usuario%0A%20%20%20%20%20%20%20%20%20%20%20%20fetch%28%27https%3A//ipapi.co/json/%27%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.then%28response%20%3D%3E%20response.json%28%29%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.then%28data%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20userCountry%20%3D%20data.country_code%3B%20//%20Obtener%20el%20c%F3digo%20del%20pa%EDs%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20//%20Verificar%20si%20el%20usuario%20est%E1%20en%20un%20pa%EDs%20prohibido%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28bannedCountries.includes%28userCountry%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20window.location.href%20%3D%20fallbackUrl%3B%20//%20Redirigir%20a%20la%20p%E1gina%20de%20fallback%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20window.location.href%20%3D%20urlWhatsapp%3B%20//%20Redirigir%20a%20WhatsApp%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.catch%28function%28error%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20console.error%28%27Error%20al%20obtener%20el%20pa%EDs%3A%27%2C%20error%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20window.location.href%20%3D%20urlWhatsapp%3B%20//%20Si%20no%20se%20puede%20determinar%20el%20pa%EDs%2C%20redirigir%20a%20WhatsApp%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20//%20Ejecutar%20la%20funci%F3n%20cuando%20se%20cargue%20la%20p%E1gina%0A%20%20%20%20%20%20%20%20window.onload%20%3D%20redirectBasedOnCountry%3B%0A%20%20%20%20%3C/script%3E%0A%3C/head%3E%0A%3Cbody%3E%0A%3C/body%3E%0A%3C/html%3E"));
+//-->
+</script>
