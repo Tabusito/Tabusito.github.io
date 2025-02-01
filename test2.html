@@ -1,0 +1,58 @@
+<script>
+  let recordBtn = document.getElementById('recordBtn');
+  let captureBtn = document.getElementById('captureBtn');
+
+  let mediaRecorder;
+  let recordedChunks = [];
+
+  // Función para grabar la pantalla
+  recordBtn.addEventListener('click', async () => {
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      mediaRecorder = new MediaRecorder(stream);
+      
+      mediaRecorder.ondataavailable = event => recordedChunks.push(event.data);
+      
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+
+        // Crear enlace para la descarga
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'recording.webm';  // Nombre del archivo
+        document.body.appendChild(a);   // Necesario para que funcione en algunos navegadores
+        a.click();                     // Hacer clic para descargar el archivo
+        document.body.removeChild(a);  // Eliminar el enlace después de la descarga
+      };
+      
+      mediaRecorder.start();
+    } catch (err) {
+      console.error('Error al acceder a la pantalla:', err);
+    }
+  });
+
+  // Función para tomar una captura de la pantalla
+  captureBtn.addEventListener('click', async () => {
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      const track = stream.getVideoTracks()[0];
+      const imageCapture = new ImageCapture(track);
+      const photo = await imageCapture.takePhoto();
+      
+      const url = URL.createObjectURL(photo);
+      
+      // Crear enlace para la descarga de la captura
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'screenshot.png';  // Nombre del archivo de la captura
+      document.body.appendChild(a);   // Necesario para que funcione en algunos navegadores
+      a.click();                     // Hacer clic para descargar el archivo
+      document.body.removeChild(a);  // Eliminar el enlace después de la descarga
+
+      track.stop(); // Detener el stream de la pantalla
+    } catch (err) {
+      console.error('Error al capturar la pantalla:', err);
+    }
+  });
+</script>
