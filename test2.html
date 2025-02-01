@@ -6,77 +6,179 @@
   <title>Captura y Grabación</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    /* ... (estilos anteriores se mantienen igual) ... */
-
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      color: #fff;
+      overflow-x: hidden;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn { 
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .navbar {
+      background: rgba(0, 0, 0, 0.9); 
+      padding: 1rem 2rem; 
+      position: fixed; 
+      width: 100%; 
+      top: 0; 
+      z-index: 1000; 
+      backdrop-filter: blur(10px);
+    }
+    .nav-content { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    .logo { 
+      font-family: 'Orbitron', sans-serif; 
+      font-size: 1.5rem; 
+      color: #00ff9d; 
+      text-shadow: 0 0 10px rgba(0, 255, 157, 0.5); 
+    }
+    .hero { 
+      height: 100vh; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      text-align: center; 
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); 
+      background-size: cover; 
+      background-position: center;
+    }
+    .hero-content { 
+      max-width: 800px; 
+      padding: 2rem; 
+    }
+    .profile-img { 
+      width: 200px; 
+      height: 200px; 
+      border-radius: 50%; 
+      border: 3px solid #00ff9d; 
+      margin-bottom: 2rem; 
+      box-shadow: 0 0 20px rgba(0, 255, 157, 0.3); 
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float { 
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    h1 { 
+      font-family: 'Orbitron', sans-serif; 
+      font-size: 3rem; 
+      margin-bottom: 1rem; 
+      animation: slideUp 1s ease-out; 
+    }
+    @keyframes slideUp { 
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    button { 
+      background: linear-gradient(135deg, #00ff9d, #00bfae); 
+      color: white; 
+      border: none; 
+      padding: 1rem 2rem; 
+      font-size: 1.2rem; 
+      font-weight: bold; 
+      border-radius: 30px; 
+      cursor: pointer; 
+      outline: none; 
+      transition: background 0.3s ease, transform 0.3s ease; 
+      box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3); 
+      text-transform: uppercase; 
+      margin-top: 2rem; 
+    }
+    button:hover { 
+      background: linear-gradient(135deg, #00bfae, #00ff9d); 
+      transform: translateY(-5px); 
+    }
     .captures-section {
-      padding: 4rem 2rem;
       text-align: center;
+      padding: 2rem;
       background: rgba(0, 0, 0, 0.8);
     }
-
-    .captures-section h2 {
-      font-family: 'Orbitron', sans-serif;
-      margin-bottom: 2rem;
-      color: #00ff9d;
-      text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
-    }
-
-    #previewContainer {
-      margin: 2rem auto;
-      max-width: 800px;
-      display: none;
-    }
-
-    #previewImage {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
-    }
-
     .recording {
       animation: pulse 1.5s infinite;
       background: linear-gradient(135deg, #ff0000, #ff4545) !important;
     }
-
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
-
-    .button-container {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
   </style>
 </head>
 <body>
-  <!-- ... (navbar y hero section se mantienen igual) ... -->
-
-  <section class="captures-section">
-    <h2>Herramientas de Captura</h2>
-    <div class="button-container">
-      <button id="recordBtn">⏺️ Iniciar Grabación</button>
-      <button id="captureBtn">📸 Capturar Pantalla</button>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">TabuSitoッ</div>
     </div>
-    <div id="previewContainer">
-      <img id="previewImage" alt="Vista previa">
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <img src="https://avatars.cloudflare.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" alt="TabuSito" class="profile-img">
+      <h1>Captura y Graba tu Pantalla</h1>
+      <div class="captures-section">
+        <button id="recordBtn">Grabar Pantalla</button>
+        <button id="captureBtn">Captura Pantalla</button>
+      </div>
     </div>
   </section>
 
   <script>
     const recordBtn = document.getElementById('recordBtn');
     const captureBtn = document.getElementById('captureBtn');
-    const previewContainer = document.getElementById('previewContainer');
-    const previewImage = document.getElementById('previewImage');
-
+    
     let mediaRecorder;
     let recordedChunks = [];
     let isRecording = false;
 
-    // Función para grabar la pantalla
+    // Función mejorada para captura de pantalla
+    captureBtn.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({ 
+          video: { displaySurface: 'monitor' },
+          audio: false
+        });
+        
+        const track = stream.getVideoTracks()[0];
+        const imageCapture = new ImageCapture(track);
+        
+        // Usar canvas para mejor compatibilidad
+        const bitmap = await imageCapture.grabFrame();
+        const canvas = document.createElement('canvas');
+        canvas.width = bitmap.width;
+        canvas.height = bitmap.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(bitmap, 0, 0);
+        
+        canvas.toBlob(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `captura-${Date.now()}.png`;
+          a.click();
+          URL.revokeObjectURL(url);
+        }, 'image/png');
+        
+        track.stop();
+      } catch (err) {
+        console.error('Error al capturar:', err);
+        alert('Error al capturar la pantalla. Asegúrate de seleccionar una ventana o pantalla.');
+      }
+    });
+
+    // Función de grabación mejorada
     recordBtn.addEventListener('click', async () => {
       if (!isRecording) {
         try {
@@ -88,78 +190,30 @@
           mediaRecorder = new MediaRecorder(stream);
           recordedChunks = [];
           
-          mediaRecorder.ondataavailable = event => {
-            if (event.data.size > 0) recordedChunks.push(event.data);
-          };
+          mediaRecorder.ondataavailable = e => recordedChunks.push(e.data);
           
-          mediaRecorder.onstop = async () => {
+          mediaRecorder.onstop = () => {
             const blob = new Blob(recordedChunks, { type: 'video/webm' });
             const url = URL.createObjectURL(blob);
-            
             const a = document.createElement('a');
             a.href = url;
             a.download = `grabacion-${Date.now()}.webm`;
-            document.body.appendChild(a);
             a.click();
-            
             URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-            
-            stream.getTracks().forEach(track => track.stop());
           };
           
           mediaRecorder.start();
           isRecording = true;
+          recordBtn.textContent = 'Detener Grabación';
           recordBtn.classList.add('recording');
-          recordBtn.innerHTML = '⏹️ Detener Grabación';
         } catch (err) {
           console.error('Error al grabar:', err);
         }
       } else {
         mediaRecorder.stop();
         isRecording = false;
+        recordBtn.textContent = 'Grabar Pantalla';
         recordBtn.classList.remove('recording');
-        recordBtn.innerHTML = '⏺️ Iniciar Grabación';
-      }
-    });
-
-    // Función para captura de pantalla
-    captureBtn.addEventListener('click', async () => {
-      try {
-        const stream = await navigator.mediaDevices.getDisplayMedia({
-          video: { displaySurface: 'monitor' },
-          audio: false
-        });
-        
-        const track = stream.getVideoTracks()[0];
-        const imageCapture = new ImageCapture(track);
-        const photo = await imageCapture.takePhoto();
-        
-        // Mostrar vista previa
-        const url = URL.createObjectURL(photo);
-        previewImage.src = url;
-        previewContainer.style.display = 'block';
-        
-        // Descargar automáticamente
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `captura-${Date.now()}.png`;
-        document.body.appendChild(a);
-        a.click();
-        
-        // Limpiar
-        URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        track.stop();
-        
-        // Ocultar vista previa después de 5 segundos
-        setTimeout(() => {
-          previewContainer.style.display = 'none';
-          previewImage.src = '';
-        }, 5000);
-        
-      } catch (err) {
-        console.error('Error al capturar:', err);
       }
     });
   </script>
