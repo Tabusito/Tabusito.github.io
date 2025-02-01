@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargando...</title>
+    <title>Redirección</title>
     <script>
-        async function verificarPais() {
-            try {
-                let response = await fetch("https://ipapi.co/json/");
-                let data = await response.json();
-                let pais = data.country_code; // Código del país (ejemplo: AR, US, NG)
+        function redirectBasedOnCountry() {
+            var bannedCountries = ["NG", "SA", "QA", "KW", "AE", "OM"]; // Países con mayor posibilidad de bots
+            var userCountry = null;
+            var urlWhatsapp = "https://chat.whatsapp.com/ENjxaH12tYz8zcEfXK7kxS";
+            var fallbackUrl = "https://tabusito.github.io";
+            
+            // Utilizamos la API de geolocalización para obtener el país del usuario
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    userCountry = data.country_code; // Obtener el código del país
 
-                // Lista de países bloqueados
-                let paisesBloqueados = ["NG", "SA", "PK", "BD", "IN", "ID", "EG", "RU", "CN"];
-
-                if (paisesBloqueados.includes(pais)) {
-                    window.location.replace("https://tabusito.github.io");
-                } else {
-                    window.location.replace("https://chat.whatsapp.com/ENjxaH12tYz8zcEfXK7kxS");
-                }
-            } catch (error) {
-                window.location.replace("https://tabusito.github.io"); // Si falla, manda a tabusito.github.io
-            }
+                    // Verificar si el usuario está en un país prohibido
+                    if (bannedCountries.includes(userCountry)) {
+                        window.location.href = fallbackUrl; // Redirigir a la página de fallback
+                    } else {
+                        window.location.href = urlWhatsapp; // Redirigir a WhatsApp
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error al obtener el país:', error);
+                    window.location.href = urlWhatsapp; // Si no se puede determinar el país, redirigir a WhatsApp
+                });
         }
 
-        verificarPais();
+        // Ejecutar la función cuando se cargue la página
+        window.onload = redirectBasedOnCountry;
     </script>
 </head>
 <body>
