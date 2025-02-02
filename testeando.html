@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TabuSitoッ - Compartir Pantalla</title>
-    
+
     <!-- Open Graph para Discord -->
     <meta property="og:title" content="TabuSitoッ">
     <meta property="og:description" content="TabuEgoistッ">
@@ -28,7 +28,7 @@
             font-family: 'Orbitron', sans-serif;
             color: #00ff9d;
         }
-        input {
+        input, button {
             padding: 10px;
             font-size: 18px;
             border-radius: 5px;
@@ -37,10 +37,6 @@
             margin: 10px;
         }
         button {
-            padding: 10px 15px;
-            font-size: 18px;
-            border-radius: 5px;
-            border: none;
             background: #00ff9d;
             color: #000;
             cursor: pointer;
@@ -65,7 +61,12 @@
 </head>
 <body>
     <h1>Compartir Pantalla - TabuSitoッ</h1>
-    <p>Ingresa un código de sala (5 dígitos) para ver la pantalla compartida:</p>
+
+    <h2>Quiero compartir mi pantalla</h2>
+    <button onclick="startScreenShare()">Iniciar Compartir Pantalla</button>
+    <p id="share-code"></p>
+
+    <h2>Quiero ver una pantalla</h2>
     <input type="text" id="room-code" maxlength="5" placeholder="Ej: 12345">
     <button onclick="joinRoom()">Ingresar</button>
     <p id="error-message" class="error"></p>
@@ -78,7 +79,7 @@
     <script>
         const rooms = {}; // Almacena las salas activas
 
-        // Host inicia transmisión
+        // Función para iniciar el screen share
         async function startScreenShare() {
             try {
                 const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
@@ -86,7 +87,7 @@
                 
                 rooms[code] = stream; // Guarda el stream en la sala
 
-                alert("Código para compartir: " + code);
+                document.getElementById("share-code").textContent = "Código para compartir: " + code;
                 
                 document.getElementById("video-container").style.display = "block";
                 document.getElementById("screen-video").srcObject = stream;
@@ -114,13 +115,6 @@
             document.getElementById("video-container").style.display = "block";
             document.getElementById("screen-video").srcObject = rooms[code];
         }
-
-        // Auto-inicio para el host (solo para pruebas)
-        window.onload = () => {
-            if (confirm("¿Sos el host?")) {
-                startScreenShare();
-            }
-        };
     </script>
 </body>
 </html>
