@@ -3,79 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TabuSitoッ - Compartir Pantalla</title>
-
-    <!-- Open Graph para Discord -->
-    <meta property="og:title" content="TabuSitoッ">
-    <meta property="og:description" content="TabuEgoistッ">
-    <meta property="og:image" content="https://i.imgur.com/zMAKF3B.png">
-    <meta property="og:url" content="https://tabusito.github.io/">
-    <meta property="og:type" content="website">
-
-    <!-- Favicon -->
-    <link rel="icon" href="https://avatars.fastly.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-
+    <title>Compartir Pantalla</title>
+    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
-            color: #fff;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: #00ff9d;
-        }
-        button {
-            padding: 10px;
-            font-size: 18px;
-            border-radius: 5px;
-            border: none;
-            background: #00ff9d;
-            color: #000;
-            cursor: pointer;
-            margin: 10px;
-        }
-        button:hover {
-            background: #00cc7a;
-        }
-        #screens-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .screen {
-            width: 45%;
-            border-radius: 10px;
-            border: 3px solid #00ff9d;
-        }
+        body { text-align: center; font-family: Arial, sans-serif; background: #121212; color: white; }
+        button { padding: 10px; margin: 10px; cursor: pointer; font-size: 16px; }
+        video { width: 80%; max-width: 600px; border: 2px solid white; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <h1>Compartir Pantalla - TabuSitoッ</h1>
-    <button onclick="startScreenShare()">Iniciar Compartir Pantalla</button>
-
-    <div id="screens-container"></div>
+    <h1>Compartir Pantalla</h1>
+    <button id="startShare">Iniciar transmisión</button>
+    <input type="text" id="magnetLink" placeholder="Pega el enlace aquí" style="width: 80%; padding: 5px;">
+    <button id="watchShare">Ver transmisión</button>
+    <div id="videos"></div>
 
     <script>
-        async function startScreenShare() {
-            try {
-                const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                
-                const video = document.createElement("video");
-                video.classList.add("screen");
-                video.srcObject = stream;
-                video.autoplay = true;
-                document.getElementById("screens-container").appendChild(video);
+        const client = new WebTorrent();
+        const videosDiv = document.getElementById("videos");
 
-            } catch (err) {
-                alert("Error al compartir pantalla: " + err.message);
+        document.getElementById("startShare").addEventListener("click", async () => {
+            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            const video = document.createElement("video");
+            video.srcObject = stream;
+            video.autoplay = true;
+            videosDiv.appendChild(video);
+
+            const mediaRecorder = new MediaRecorder(stream);
+            const chunks = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) chunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const file = new Blob(chunks, { type: "video/webm" });
+                client.seed(file, (torrent) => {
+                    console.log("Compartiendo en:", torrent.magnetURI);
+                    document.getElementById("magnetLink").value = torrent.magnetURI;
+                });
+            };
+
+            mediaRecorder.start(1000); // Captura continua cada segundo
+            setInterval(() => mediaRecorder.requestData(), 1000); // Evita acumulación de datos
+        });
+
+        document.getElementById("watchShare").addEventListener("click", () => {
+            const magnetURI = document.getElementById("magnetLink").value;
+            if (magnetURI) {
+                client.add(magnetURI, (torrent) => {
+                    torrent.files[0].renderTo(videosDiv);
+                });
+            } else {
+                alert("Pegá un enlace válido.");
             }
-        }
+        });
     </script>
 </body>
 </html>
