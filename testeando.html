@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Streaming P2P - TabuSitoッ</title>
-    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-peer@9.11.1/simplepeer.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,50 +40,51 @@
 
     <h1>Streaming P2P - TabuSitoッ</h1>
     <button onclick="startStreaming()">Iniciar Transmisión</button>
-    <button onclick="watchStreams()">Ver Transmisiones</button>
+    <button onclick="watchStream()">Ver Transmisión</button>
     <div id="streamLink"></div>
-    <video id="videoElement" autoplay playsinline muted></video>
-    <div id="streams"></div>
+    <video id="videoElement" autoplay playsinline></video>
 
     <script>
-        const client = new WebTorrent();
+        let peer;
+        let isBroadcaster = false;
+        let stream;
 
         function startStreaming() {
-            navigator.mediaDevices.getDisplayMedia({ video: true, audio: true }).then(stream => {
-                document.getElementById("videoElement").srcObject = stream;
+            isBroadcaster = true;
+            navigator.mediaDevices.getDisplayMedia({ video: true, audio: true }).then(mediaStream => {
+                document.getElementById("videoElement").srcObject = mediaStream;
+                stream = mediaStream;
+                peer = new SimplePeer({ initiator: true, trickle: false, stream });
 
-                const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
-                const chunks = [];
-
-                mediaRecorder.ondataavailable = e => chunks.push(e.data);
-
-                mediaRecorder.start(1000);
-
-                // Crear un archivo en vivo y empezar a compartirlo
-                const file = new File(chunks, "stream.webm", { type: "video/webm" });
-
-                client.seed(file, torrent => {
-                    const torrentId = torrent.magnetURI;
-                    document.getElementById("streamLink").innerHTML = `Enlace para compartir: <br> <a href="?stream=${encodeURIComponent(torrentId)}">${window.location.origin + window.location.pathname}?stream=${encodeURIComponent(torrentId)}</a>`;
+                peer.on('signal', data => {
+                    const link = `${window.location.origin + window.location.pathname}?stream=${btoa(JSON.stringify(data))}`;
+                    document.getElementById("streamLink").innerHTML = `Comparte este enlace: <br> <a href="${link}" target="_blank">${link}</a>`;
                 });
 
-                stream.getTracks().forEach(track => track.onended = () => mediaRecorder.stop());
+                peer.on('error', err => console.error('Error:', err));
             });
         }
 
-        function watchStreams() {
+        function watchStream() {
             const urlParams = new URLSearchParams(window.location.search);
-            const streamId = urlParams.get("stream");
+            const streamData = urlParams.get("stream");
 
-            if (streamId) {
-                client.add(streamId, torrent => {
-                    const file = torrent.files.find(file => file.name.endsWith(".webm"));
-                    file.renderTo("#videoElement");
+            if (streamData) {
+                peer = new SimplePeer({ initiator: false, trickle: false });
+
+                peer.on('signal', data => {
+                    fetch(window.location.href + "&answer=" + btoa(JSON.stringify(data)));
                 });
+
+                peer.on('stream', mediaStream => {
+                    document.getElementById("videoElement").srcObject = mediaStream;
+                });
+
+                peer.signal(JSON.parse(atob(streamData)));
             }
         }
 
-        watchStreams();
+        watchStream();
     </script>
 
 </body>
