@@ -3,61 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compartir Pantalla</title>
+    <title>Streaming P2P - TabuSitoッ</title>
     <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
     <style>
-        body { text-align: center; font-family: Arial, sans-serif; background: #121212; color: white; }
-        button { padding: 10px; margin: 10px; cursor: pointer; font-size: 16px; }
-        video { width: 80%; max-width: 600px; border: 2px solid white; margin-top: 10px; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #111;
+            color: white;
+        }
+        video {
+            width: 70%;
+            max-width: 800px;
+            margin: 20px 0;
+            border: 2px solid #00ff9d;
+            border-radius: 10px;
+        }
+        button {
+            background: #00ff9d;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        #streamLink {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #00ff9d;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
-    <h1>Compartir Pantalla</h1>
-    <button id="startShare">Iniciar transmisión</button>
-    <input type="text" id="magnetLink" placeholder="Pega el enlace aquí" style="width: 80%; padding: 5px;">
-    <button id="watchShare">Ver transmisión</button>
-    <div id="videos"></div>
+
+    <h1>Streaming P2P - TabuSitoッ</h1>
+    <button onclick="startStreaming()">Iniciar Transmisión</button>
+    <button onclick="watchStreams()">Ver Transmisiones</button>
+    <div id="streamLink"></div>
+    <video id="videoElement" autoplay playsinline muted></video>
+    <div id="streams"></div>
 
     <script>
         const client = new WebTorrent();
-        const videosDiv = document.getElementById("videos");
+        let torrentId;
 
-        document.getElementById("startShare").addEventListener("click", async () => {
-            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-            const video = document.createElement("video");
-            video.srcObject = stream;
-            video.autoplay = true;
-            videosDiv.appendChild(video);
+        function startStreaming() {
+            navigator.mediaDevices.getDisplayMedia({ video: true, audio: true }).then(stream => {
+                document.getElementById("videoElement").srcObject = stream;
 
-            const mediaRecorder = new MediaRecorder(stream);
-            const chunks = [];
+                const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+                const chunks = [];
 
-            mediaRecorder.ondataavailable = (event) => {
-                if (event.data.size > 0) chunks.push(event.data);
-            };
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                mediaRecorder.onstop = () => {
+                    const file = new File(chunks, "stream.webm", { type: "video/webm" });
 
-            mediaRecorder.onstop = () => {
-                const file = new Blob(chunks, { type: "video/webm" });
-                client.seed(file, (torrent) => {
-                    console.log("Compartiendo en:", torrent.magnetURI);
-                    document.getElementById("magnetLink").value = torrent.magnetURI;
+                    client.seed(file, torrent => {
+                        torrentId = torrent.magnetURI;
+                        document.getElementById("streamLink").innerHTML = `Enlace para compartir: <br> <a href="?stream=${encodeURIComponent(torrentId)}">${window.location.origin + window.location.pathname}?stream=${encodeURIComponent(torrentId)}</a>`;
+                    });
+                };
+
+                mediaRecorder.start(1000);
+                stream.getTracks().forEach(track => track.onended = () => mediaRecorder.stop());
+            });
+        }
+
+        function watchStreams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const streamId = urlParams.get("stream");
+
+            if (streamId) {
+                client.add(streamId, torrent => {
+                    const file = torrent.files.find(file => file.name.endsWith(".webm"));
+                    file.renderTo("#videoElement");
                 });
-            };
-
-            mediaRecorder.start(1000); // Captura continua cada segundo
-            setInterval(() => mediaRecorder.requestData(), 1000); // Evita acumulación de datos
-        });
-
-        document.getElementById("watchShare").addEventListener("click", () => {
-            const magnetURI = document.getElementById("magnetLink").value;
-            if (magnetURI) {
-                client.add(magnetURI, (torrent) => {
-                    torrent.files[0].renderTo(videosDiv);
-                });
-            } else {
-                alert("Pegá un enlace válido.");
             }
-        });
+        }
+
+        watchStreams();
     </script>
+
 </body>
 </html>
