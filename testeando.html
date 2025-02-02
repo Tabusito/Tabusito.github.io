@@ -47,7 +47,6 @@
 
     <script>
         const client = new WebTorrent();
-        let torrentId;
 
         function startStreaming() {
             navigator.mediaDevices.getDisplayMedia({ video: true, audio: true }).then(stream => {
@@ -57,16 +56,17 @@
                 const chunks = [];
 
                 mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                mediaRecorder.onstop = () => {
-                    const file = new File(chunks, "stream.webm", { type: "video/webm" });
-
-                    client.seed(file, torrent => {
-                        torrentId = torrent.magnetURI;
-                        document.getElementById("streamLink").innerHTML = `Enlace para compartir: <br> <a href="?stream=${encodeURIComponent(torrentId)}">${window.location.origin + window.location.pathname}?stream=${encodeURIComponent(torrentId)}</a>`;
-                    });
-                };
 
                 mediaRecorder.start(1000);
+
+                // Crear un archivo en vivo y empezar a compartirlo
+                const file = new File(chunks, "stream.webm", { type: "video/webm" });
+
+                client.seed(file, torrent => {
+                    const torrentId = torrent.magnetURI;
+                    document.getElementById("streamLink").innerHTML = `Enlace para compartir: <br> <a href="?stream=${encodeURIComponent(torrentId)}">${window.location.origin + window.location.pathname}?stream=${encodeURIComponent(torrentId)}</a>`;
+                });
+
                 stream.getTracks().forEach(track => track.onended = () => mediaRecorder.stop());
             });
         }
