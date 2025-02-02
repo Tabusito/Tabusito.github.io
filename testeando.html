@@ -1,5 +1,126 @@
-<script>
-<!--
-document.write(unescape("%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22es%22%3E%0A%3Chead%3E%0A%20%20%20%20%3Cmeta%20charset%3D%22UTF-8%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1.0%22%3E%0A%20%20%20%20%3Ctitle%3ETabuSito%u30C3%20-%20Transmisi%F3n%3C/title%3E%0A%20%20%20%20%0A%20%20%20%20%3C%21--%20Open%20Graph%20--%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Atitle%22%20content%3D%22TabuSito%u30C3%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Adescription%22%20content%3D%22TabuEgoist%u30C3%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Aimage%22%20content%3D%22https%3A//i.imgur.com/zMAKF3B.png%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Aurl%22%20content%3D%22https%3A//tabusito.github.io/%22%3E%0A%20%20%20%20%3Cmeta%20property%3D%22og%3Atype%22%20content%3D%22website%22%3E%0A%20%20%20%20%0A%20%20%20%20%3C%21--%20Favicon%20--%3E%0A%20%20%20%20%3Clink%20rel%3D%22icon%22%20href%3D%22https%3A//avatars.fastly.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg%22%20type%3D%22image/jpeg%22%3E%0A%20%20%20%20%3Clink%20href%3D%22https%3A//fonts.googleapis.com/css2%3Ffamily%3DOrbitron%3Awght@400%3B700%26family%3DRoboto%3Awght@300%3B400%3B700%26display%3Dswap%22%20rel%3D%22stylesheet%22%3E%0A%20%20%20%20%0A%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20%20%20body%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20font-family%3A%20%27Roboto%27%2C%20sans-serif%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20background%3A%20%231a1a1a%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20margin-top%3A%2080px%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20button%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20background%3A%20%2300ff9d%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20margin%3A%2010px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20input%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20padding%3A%208px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20width%3A%20120px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20video%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20width%3A%2080%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20max-width%3A%20500px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20margin-top%3A%2010px%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20border%3A%202px%20solid%20%2300ff9d%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%3C/style%3E%0A%3C/head%3E%0A%3Cbody%3E%0A%20%20%20%20%3Ch1%3ETransmite%20tu%20pantalla%3C/h1%3E%0A%20%20%20%20%3Cbutton%20id%3D%22start%22%3EIniciar%3C/button%3E%0A%20%20%20%20%3Cbutton%20id%3D%22stop%22%20disabled%3EDetener%3C/button%3E%0A%20%20%20%20%3Cp%3EC%F3digo%20de%20sala%3A%20%3Cspan%20id%3D%22roomCode%22%3E----%3C/span%3E%3C/p%3E%0A%20%20%20%20%3Cvideo%20id%3D%22localVideo%22%20autoplay%20playsinline%3E%3C/video%3E%0A%0A%20%20%20%20%3Ch1%3EVer%20transmisi%F3n%3C/h1%3E%0A%20%20%20%20%3Cinput%20type%3D%22text%22%20id%3D%22roomInput%22%20placeholder%3D%22C%F3digo%22%3E%0A%20%20%20%20%3Cbutton%20id%3D%22join%22%3EUnirse%3C/button%3E%0A%20%20%20%20%3Cvideo%20id%3D%22remoteVideo%22%20autoplay%20playsinline%3E%3C/video%3E%0A%0A%20%20%20%20%3Cscript%3E%0A%20%20%20%20%20%20%20%20let%20peerConnection%2C%20localStream%2C%20remoteStream%2C%20roomId%3B%0A%20%20%20%20%20%20%20%20const%20config%20%3D%20%7B%20iceServers%3A%20%5B%7B%20urls%3A%20%22stun%3Astun.l.google.com%3A19302%22%20%7D%5D%20%7D%3B%0A%20%20%20%20%20%20%20%20const%20servers%20%3D%20%7B%7D%3B%0A%0A%20%20%20%20%20%20%20%20function%20generateRoomCode%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20Math.floor%2810000%20+%20Math.random%28%29%20*%2090000%29.toString%28%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20async%20function%20startStreaming%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20roomId%20%3D%20generateRoomCode%28%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22roomCode%22%29.textContent%20%3D%20roomId%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20localStream%20%3D%20await%20navigator.mediaDevices.getDisplayMedia%28%7B%20video%3A%20true%2C%20audio%3A%20true%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22localVideo%22%29.srcObject%20%3D%20localStream%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22localVideo%22%29.style.display%20%3D%20%22block%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22stop%22%29.disabled%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22start%22%29.disabled%20%3D%20true%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20peerConnection%20%3D%20new%20RTCPeerConnection%28config%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20localStream.getTracks%28%29.forEach%28track%20%3D%3E%20peerConnection.addTrack%28track%2C%20localStream%29%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20peerConnection.onicecandidate%20%3D%20event%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28event.candidate%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20servers%5BroomId%5D%20%3D%20event.candidate%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20async%20function%20joinRoom%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20roomInput%20%3D%20document.getElementById%28%22roomInput%22%29.value%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28%21roomInput%20%7C%7C%20%21servers%5BroomInput%5D%29%20return%20alert%28%22C%F3digo%20incorrecto%20o%20sala%20no%20disponible.%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20roomId%20%3D%20roomInput%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20peerConnection%20%3D%20new%20RTCPeerConnection%28config%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20peerConnection.ontrack%20%3D%20event%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22remoteVideo%22%29.srcObject%20%3D%20event.streams%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22remoteVideo%22%29.style.display%20%3D%20%22block%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20peerConnection.addIceCandidate%28servers%5BroomId%5D%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20function%20stopStreaming%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28localStream%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20localStream.getTracks%28%29.forEach%28track%20%3D%3E%20track.stop%28%29%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22localVideo%22%29.srcObject%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22localVideo%22%29.style.display%20%3D%20%22none%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22start%22%29.disabled%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20document.getElementById%28%22stop%22%29.disabled%20%3D%20true%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20document.getElementById%28%22start%22%29.addEventListener%28%22click%22%2C%20startStreaming%29%3B%0A%20%20%20%20%20%20%20%20document.getElementById%28%22join%22%29.addEventListener%28%22click%22%2C%20joinRoom%29%3B%0A%20%20%20%20%20%20%20%20document.getElementById%28%22stop%22%29.addEventListener%28%22click%22%2C%20stopStreaming%29%3B%0A%20%20%20%20%3C/script%3E%0A%3C/body%3E%0A%3C/html%3E"));
-//-->
-</script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TabuSitoッ - Compartir Pantalla</title>
+    
+    <!-- Open Graph para Discord -->
+    <meta property="og:title" content="TabuSitoッ">
+    <meta property="og:description" content="TabuEgoistッ">
+    <meta property="og:image" content="https://i.imgur.com/zMAKF3B.png">
+    <meta property="og:url" content="https://tabusito.github.io/">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://avatars.fastly.steamstatic.com/66e2fe2d8f40ca4328fd5d25a561f87ed0ae598f_full.jpg" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ff9d;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            background: #00ff9d;
+            color: #000;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #00cc7a;
+        }
+        #video-container {
+            display: none;
+            margin-top: 20px;
+        }
+        video {
+            width: 80%;
+            border-radius: 10px;
+            border: 3px solid #00ff9d;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Compartir Pantalla - TabuSitoッ</h1>
+    <p>Ingresa un código de sala (5 dígitos) para ver la pantalla compartida:</p>
+    <input type="text" id="room-code" maxlength="5" placeholder="Ej: 12345">
+    <button onclick="joinRoom()">Ingresar</button>
+    <p id="error-message" class="error"></p>
+
+    <div id="video-container">
+        <h2>Transmisión en vivo</h2>
+        <video id="screen-video" autoplay></video>
+    </div>
+
+    <script>
+        const rooms = {}; // Almacena las salas activas
+
+        // Host inicia transmisión
+        async function startScreenShare() {
+            try {
+                const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                const code = (Math.floor(Math.random() * 90000) + 10000).toString(); // Código de 5 dígitos
+                
+                rooms[code] = stream; // Guarda el stream en la sala
+
+                alert("Código para compartir: " + code);
+                
+                document.getElementById("video-container").style.display = "block";
+                document.getElementById("screen-video").srcObject = stream;
+            } catch (err) {
+                alert("Error al compartir pantalla: " + err.message);
+            }
+        }
+
+        // Unirse a una sala
+        function joinRoom() {
+            const code = document.getElementById("room-code").value.trim();
+            const errorMessage = document.getElementById("error-message");
+
+            if (!/^\d{5}$/.test(code)) {
+                errorMessage.textContent = "El código debe ser de 5 dígitos.";
+                return;
+            }
+
+            if (!rooms[code]) {
+                errorMessage.textContent = "El código no existe.";
+                return;
+            }
+
+            errorMessage.textContent = ""; // Borra errores anteriores
+            document.getElementById("video-container").style.display = "block";
+            document.getElementById("screen-video").srcObject = rooms[code];
+        }
+
+        // Auto-inicio para el host (solo para pruebas)
+        window.onload = () => {
+            if (confirm("¿Sos el host?")) {
+                startScreenShare();
+            }
+        };
+    </script>
+</body>
+</html>
