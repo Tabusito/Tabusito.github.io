@@ -15,9 +15,8 @@
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
             color: #fff;
-            overflow-x: hidden;
-            animation: fadeIn 1s ease-in;
             text-align: center;
+            animation: fadeIn 1s ease-in;
         }
         @keyframes fadeIn { 
             from { opacity: 0; }
@@ -25,29 +24,23 @@
         }
         .navbar {
             background: rgba(0, 0, 0, 0.9); 
-            padding: 1rem 2rem; 
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            z-index: 1000; 
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
             backdrop-filter: blur(10px);
         }
-        .nav-content { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
-        .logo { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 1.5rem; 
-            color: #00ff9d; 
-            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5); 
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #00ff9d;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
         }
         .container {
-            max-width: 600px;
-            margin: 120px auto 50px;
+            max-width: 90%;
+            width: 600px;
+            margin: 100px auto 50px;
             padding: 2rem;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
@@ -55,7 +48,7 @@
         }
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
             color: #00ff9d;
         }
@@ -64,14 +57,14 @@
             margin-bottom: 1rem;
         }
         .alias {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #00ff9d;
             user-select: all;
             padding: 10px;
             border: 2px dashed #00ff9d;
             display: inline-block;
-            margin-bottom: 20px;
+            word-wrap: break-word;
         }
         .copy-btn {
             display: inline-block;
@@ -82,7 +75,6 @@
             background: linear-gradient(135deg, #00ff9d, #00bfae);
             border: none;
             border-radius: 5px;
-            text-decoration: none;
             transition: 0.3s;
             box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
             cursor: pointer;
@@ -94,7 +86,7 @@
         .warning {
             margin-top: 20px;
             padding: 15px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: white;
             background: red;
             border-radius: 5px;
@@ -104,7 +96,7 @@
         .footer {
             margin-top: 50px;
             padding: 1rem;
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.7;
         }
         .footer a {
@@ -115,14 +107,52 @@
         .footer a:hover {
             text-decoration: underline;
         }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .alias {
+                font-size: 1.4rem;
+                padding: 8px;
+            }
+            .copy-btn {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+            .warning {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            .alias {
+                font-size: 1.2rem;
+                padding: 6px;
+            }
+            .copy-btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+            .warning {
+                font-size: 0.8rem;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">TabuSitoッ</div>
-        </div>
+        <div class="logo">TabuSitoッ</div>
     </nav>
 
     <div class="container">
@@ -131,10 +161,12 @@
         <p class="alias" id="alias">donaporbahiablanca</p>
         <button class="copy-btn" onclick="copyAlias()">Copiar Alias</button>
 
-        <p class="warning">⚠️ IMPORTANTE: Verifica antes de donar, el alias debe decir "Cruz Roja Argentina.</p>
+        <p class="warning">⚠️ IMPORTANTE: Verifica antes de donar, el alias debe decir "Cruz Roja Argentina"</p>
     </div>
 
-    <p class="footer">Este sitio fue hecho por <a href="https://tabusito.github.io" target="_blank">TabuSito❤️</a></p>
+    <div class="footer">
+        Este sitio fue hecho por <a href="https://tabusito.github.io" target="_blank" rel="noopener noreferrer">TabuSito❤️</a>
+    </div>
 
     <script>
         function copyAlias() {
