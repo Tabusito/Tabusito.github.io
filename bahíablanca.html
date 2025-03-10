@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doná por Bahía Blanca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            color: #fff;
+            overflow-x: hidden;
+            animation: fadeIn 1s ease-in;
+            text-align: center;
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .navbar {
+            background: rgba(0, 0, 0, 0.9); 
+            padding: 1rem 2rem; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            backdrop-filter: blur(10px);
+        }
+        .nav-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 1.5rem; 
+            color: #00ff9d; 
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5); 
+        }
+        .container {
+            max-width: 600px;
+            margin: 120px auto 50px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00ff9d;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .alias {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff9d;
+            user-select: all;
+            padding: 10px;
+            border: 2px dashed #00ff9d;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .copy-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #00ff9d, #00bfae);
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background: linear-gradient(135deg, #00bfae, #00ff9d);
+            transform: translateY(-3px);
+        }
+        .warning {
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: white;
+            background: red;
+            border-radius: 5px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+        .footer {
+            margin-top: 50px;
+            padding: 1rem;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        .footer a {
+            color: #00ff9d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">TabuSitoッ</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Ayudemos a Bahía Blanca</h1>
+        <p>Colaborá con lo que puedas mediante el siguiente alias:</p>
+        <p class="alias" id="alias">donaporbahiablanca</p>
+        <button class="copy-btn" onclick="copyAlias()">Copiar Alias</button>
+
+        <p class="warning">⚠️ IMPORTANTE: Verifica antes de donar, el alias debe decir "Cruz Roja Argentina.</p>
+    </div>
+
+    <p class="footer">Este sitio fue hecho por <a href="https://tabusito.github.io" target="_blank">TabuSito❤️</a></p>
+
+    <script>
+        function copyAlias() {
+            const aliasText = document.getElementById('alias').textContent;
+            navigator.clipboard.writeText(aliasText)
+                .then(() => alert("Alias copiado: " + aliasText))
+                .catch(err => console.error("Error al copiar", err));
+        }
+    </script>
+
+</body>
+</html>
